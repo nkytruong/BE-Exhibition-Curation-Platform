@@ -1,0 +1,5 @@
+DROP DATABASE IF EXISTS exhibition_curation_platform;
+DROP DATABASE IF EXISTS exhibition_curation_platform_test;
+
+CREATE DATABASE exhibition_curation_platform;
+CREATE DATABASE exhibition_curation_platform_test;
