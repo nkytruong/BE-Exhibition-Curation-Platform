@@ -2,7 +2,7 @@ import { User } from "../../../types/types"
 
 export const users: User[] = [
         {
-          user_id: "1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p6",
+          user_id: 1,
           email: "john.doe@example.com",
           first_name: "John",
           surname: "Doe",
@@ -10,7 +10,7 @@ export const users: User[] = [
           created_at: "2025-01-01T10:00:00Z",
         },
         {
-          user_id: "2b3c4d5e-6f7g-8h9i-0j1k-l2m3n4o5p6q7",
+          user_id: 2,
           email: "jane.smith@example.com",
           first_name: "Jane",
           surname: "Smith",
@@ -18,7 +18,7 @@ export const users: User[] = [
           created_at: "2025-01-02T11:00:00Z",
         },
         {
-          user_id: "3c4d5e6f-7g8h-9i0j-k1l2m3n4o5p6q7r8",
+          user_id: 3,
           email: "alice.wonderland@example.com",
           first_name: "Alice",
           surname: "Wonderland",
@@ -26,7 +26,7 @@ export const users: User[] = [
           created_at: "2025-01-03T12:00:00Z",
         },
         {
-          user_id: "4d5e6f7g-8h9i-0j1k-l2m3n4o5p6q7r8s9",
+          user_id: 4,
           email: "bob.ross@example.com",
           first_name: "Bob",
           surname: "Ross",
@@ -34,7 +34,7 @@ export const users: User[] = [
           created_at: "2025-01-04T13:00:00Z",
         },
         {
-          user_id: "5e6f7g8h-9i0j-k1l2-m3n4o5p6q7r8s9t0",
+          user_id: 5,
           email: "charlie.brown@example.com",
           first_name: "Charlie",
           surname: "Brown",
@@ -42,7 +42,7 @@ export const users: User[] = [
           created_at: "2025-01-05T14:00:00Z",
         },
         {
-          user_id: "6f7g8h9i-0j1k-l2m3-n4o5p6q7r8s9t0u1",
+          user_id: 6,
           email: "dora.explorer@example.com",
           first_name: "Dora",
           surname: "Explorer",
@@ -50,7 +50,7 @@ export const users: User[] = [
           created_at: "2025-01-06T15:00:00Z",
         },
         {
-          user_id: "7g8h9i0j-1k2l-3m4n-o5p6q7r8s9t0u1v2",
+          user_id: 7,
           email: "frodo.baggins@example.com",
           first_name: "Frodo",
           surname: "Baggins",
@@ -58,7 +58,7 @@ export const users: User[] = [
           created_at: "2025-01-07T16:00:00Z",
         },
         {
-          user_id: "8h9i0j1k-2l3m-4n5o-p6q7r8s9t0u1v2w3",
+          user_id: 8,
           email: "gandalf.thegrey@example.com",
           first_name: "Gandalf",
           surname: "The Grey",
@@ -66,7 +66,7 @@ export const users: User[] = [
           created_at: "2025-01-08T17:00:00Z",
         },
         {
-          user_id: "9i0j1k2l-3m4n-5o6p-q7r8s9t0u1v2w3x4",
+          user_id: 9,
           email: "hermione.granger@example.com",
           first_name: "Hermione",
           surname: "Granger",
@@ -74,7 +74,7 @@ export const users: User[] = [
           created_at: "2025-01-09T18:00:00Z",
         },
         {
-          user_id: "0j1k2l3m-4n5o-6p7q-r8s9t0u1v2w3x4y5",
+          user_id: 10,
           email: "luke.skywalker@example.com",
           first_name: "Luke",
           surname: "Skywalker",

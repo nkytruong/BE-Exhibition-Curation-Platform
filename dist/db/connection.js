@@ -18,5 +18,5 @@ if (ENV === 'production') {
     config.connectionString = process.env.DATABASE_URL;
     config.max = 2; // Limit the number of connections in production
 }
-const pool = new pg_1.Pool(config);
-exports.default = pool;
+const db = new pg_1.Pool(config);
+exports.default = db;

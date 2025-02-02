@@ -1,0 +1,35 @@
+{
+  "GET /": {
+    "description": "serves up a json representation of all the available endpoints of the api"
+  },
+  "GET /api": {
+    "description": "serves up a json representation of all the available endpoints of the api"
+  },
+  "POST /api/auth/register": {
+    "description": "creates a new user",
+    "example_request": {
+      "email": "nikki@example.com",
+      "first_name": "Nikki",
+      "surname": "Example",
+      "password": "password123"
+    },
+    "example_response": {
+      "user_id": 5,
+      "email": "nikki@example.com",
+      "first_name": "Nikki",
+      "surname": "Example",
+      "created_at": "2025-02-02T04:50:37.419Z"
+    }
+  },
+  "POST /api/auth/login": {
+    "description": "logs in a user",
+    "example_request": {
+      "email": "bob@example.com",
+      "password": "happytrees"
+    },
+    "example_response": {
+      "msg": "Login successful",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  }
+}

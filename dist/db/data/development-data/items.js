@@ -1,6 +1,7 @@
-import { Item } from "../../../types/types";
-
-export const items: Item[] = [
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.items = void 0;
+exports.items = [
     {
         item_id: 1,
         external_id: 435882,
@@ -12,8 +13,8 @@ export const items: Item[] = [
         full_image_url: "https://images.metmuseum.org/CRDImages/ep/original/DT47.jpg",
         details_url: "https://www.metmuseum.org/art/collection/search/435882",
         date_created: "ca. 1890",
-      },
-      {
+    },
+    {
         item_id: 2,
         external_id: 437853,
         api_source: "MetMuseum",
@@ -24,8 +25,8 @@ export const items: Item[] = [
         full_image_url: "https://images.metmuseum.org/CRDImages/ep/original/DP169568.jpg",
         details_url: "https://www.metmuseum.org/art/collection/search/437853",
         date_created: "ca. 1835",
-      },
-      {
+    },
+    {
         item_id: 3,
         external_id: 54632,
         api_source: "MetMuseum",
@@ -36,8 +37,8 @@ export const items: Item[] = [
         full_image_url: "https://images.metmuseum.org/CRDImages/as/original/DP211814.jpg",
         details_url: "https://www.metmuseum.org/art/collection/search/54632",
         date_created: "ca. 1887",
-      },
-      {
+    },
+    {
         item_id: 4,
         external_id: 54648,
         api_source: "MetMuseum",
@@ -48,8 +49,8 @@ export const items: Item[] = [
         full_image_url: "https://images.metmuseum.org/CRDImages/as/original/DP132737.jpg",
         details_url: "https://www.metmuseum.org/art/collection/search/54648",
         date_created: "1776",
-      },
-      {
+    },
+    {
         item_id: 5,
         external_id: 53688,
         api_source: "MetMuseum",
@@ -60,5 +61,5 @@ export const items: Item[] = [
         full_image_url: "https://images.metmuseum.org/CRDImages/as/original/DP140954.jpg",
         details_url: "https://www.metmuseum.org/art/collection/search/53688",
         date_created: "ca. 1843",
-      }
-]
+    }
+];
