@@ -13,11 +13,12 @@ export function authenticateUser(
   req: Request,
   res: Response,
   next: NextFunction
-) {
+): void {
   const token = req.cookies?.authToken;
 
   if (!token) {
-    return res.status(401).json({ msg: "No token provided" });
+    res.status(401).json({ msg: "No token provided" });
+    return;
   }
   try {
     const decoded = verifyToken(token);

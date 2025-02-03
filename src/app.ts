@@ -4,10 +4,15 @@ import { Request, Response, NextFunction } from "express-serve-static-core";
 import cors from "cors";
 import { usersRouter } from "./routes/users-router";
 import { apiRouter } from "./routes/api-router";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 app.use(cors());
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 app.use(express.json());
 

@@ -5,7 +5,8 @@ const ENV = process.env.NODE_ENV || "development";
 
 // Load environment variables from the appropriate .env file
 dotenv.config({
-  path: `${__dirname}/../.env.${ENV}`,
+  // path: `${__dirname}/../.env.${ENV}`,
+  path: `.env.${ENV}`
 });
 
 // console.log(`🔍 Using environment file: .env.${ENV}`);
