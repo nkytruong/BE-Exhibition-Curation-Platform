@@ -15,29 +15,16 @@ export interface Collection {
   updated_at: string;
 }
 
-export interface Item {
-  item_id: number;
-  external_id: number;
-  api_source: string;
-  classification: string;
-  item_title: string;
-  artist: string;
-  thumbnail_url: string;
-  full_image_url: string;
-  details_url: string;
-  date_created: string;
-}
-
 export interface CollectionItem {
   relationship_id: string;
   collection_id: string;
-  item_id: number;
+  external_id: number;
+  api_source: string;
   created_at: string;
 }
 
 export type SeedData = {
   users: User[];
   userCollections: Collection[];
-  items: Item[];
   collectionItems: CollectionItem[];
 };

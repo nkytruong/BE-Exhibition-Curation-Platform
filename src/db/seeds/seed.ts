@@ -1,21 +1,15 @@
-import { Collection, Item, SeedData, User } from "../../types/types";
+import { Collection, CollectionItem, SeedData, User } from "../../types/types";
 import { hashPassword } from "../../utils/auth-utils";
 import db from "../connection";
 import format from "pg-format";
 
-// change item_id to integer/number
-
 export function seed({
   users,
   userCollections,
-  items,
   collectionItems,
 }: SeedData) {
   return db
     .query(`DROP TABLE IF EXISTS collection_items;`)
-    .then(() => {
-      return db.query(`DROP TABLE IF EXISTS items;`);
-    })
     .then(() => {
       return db.query(`DROP TABLE IF EXISTS user_collections;`);
     })
@@ -36,7 +30,7 @@ export function seed({
     .then(() => {
       return db.query(`
         CREATE TABLE user_collections(
-            collection_id UUID PRIMARY KEY,
+            collection_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
             user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
             collection_name VARCHAR(100) NOT NULL,
             created_at TIMESTAMP DEFAULT NOW(),
@@ -45,26 +39,13 @@ export function seed({
     })
     .then(() => {
       return db.query(`
-        CREATE TABLE items(
-            item_id SERIAL PRIMARY KEY,
-            external_id VARCHAR(255) NOT NULL,
-            api_source VARCHAR (255) NOT NULL,
-            classification VARCHAR(50) NOT NULL,
-            item_title VARCHAR(255) NOT NULL,
-            artist VARCHAR(255) NOT NULL,
-            thumbnail_url TEXT,
-            full_image_url TEXT,
-            details_url TEXT,
-            date_created VARCHAR(50)
-        );`);
-    })
-    .then(() => {
-      return db.query(`
         CREATE TABLE collection_items(
-            relationship_id UUID PRIMARY KEY,
+            relationship_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
             collection_id UUID REFERENCES user_collections(collection_id) ON DELETE CASCADE,
-            item_id INTEGER REFERENCES items(item_id) ON DELETE CASCADE,
-            created_at TIMESTAMP DEFAULT NOW()
+            external_id BIGINT NOT NULL,
+            api_source VARCHAR(50) NOT NULL,
+            created_at TIMESTAMP DEFAULT NOW(),
+            UNIQUE(collection_id, external_id, api_source)
         );`);
     })
     .then(() => {
@@ -100,30 +81,13 @@ export function seed({
       return db.query(insertUserCollectionsQueryStr);
     })
     .then(() => {
-      const insertItemsQueryStr = format(
-        `INSERT INTO items (item_id, external_id, api_source, classification, item_title, artist, thumbnail_url, details_url, full_image_url, date_created) VALUES %L;`,
-        items.map((item: Item) => [
-          item.item_id,
-          item.external_id,
-          item.api_source,
-          item.classification,
-          item.item_title,
-          item.artist,
-          item.thumbnail_url,
-          item.full_image_url,
-          item.details_url,
-          item.date_created,
-        ])
-      );
-      return db.query(insertItemsQueryStr);
-    })
-    .then(() => {
       const insertCollectionItemQueryStr = format(
-        `INSERT INTO collection_items (relationship_id, collection_id, item_id, created_at) VALUES %L;`,
-        collectionItems.map((collectionItem) => [
+        `INSERT INTO collection_items (relationship_id, collection_id, external_id, api_source, created_at) VALUES %L;`,
+        collectionItems.map((collectionItem: CollectionItem) => [
           collectionItem.relationship_id,
           collectionItem.collection_id,
-          collectionItem.item_id,
+          collectionItem.external_id,
+          collectionItem.api_source,
           collectionItem.created_at,
         ])
       );

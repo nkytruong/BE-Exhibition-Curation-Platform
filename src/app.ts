@@ -1,8 +1,6 @@
 import express from "express";
 import { Request, Response, NextFunction } from "express-serve-static-core";
-// import authRouter from "./routes/authRouter"
 import cors from "cors";
-import { usersRouter } from "./routes/users-router";
 import { apiRouter } from "./routes/api-router";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
