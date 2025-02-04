@@ -8,13 +8,15 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
-app.use(express.json());
-
 app.use("/api", apiRouter);
+console.log("📌 DATABASE_URL:", process.env.DATABASE_URL);
+console.log("📌 PORT:", process.env.PORT);
+
 
 interface CustomError extends Error {
   status?: number;
