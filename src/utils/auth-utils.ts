@@ -1,14 +1,15 @@
 import jwt, { Secret } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { Response } from "express";
-import dotenv from "dotenv";
+// import dotenv from "dotenv";
 
-const ENV = process.env.NODE_ENV || "development";
+// const ENV = process.env.NODE_ENV || "development";
 
 // Load environment variables from the appropriate .env file
-dotenv.config({
-  path: `${__dirname}/../.env.${ENV}`,
-});
+// dotenv.config({
+//   path: `${__dirname}/../../.env.${ENV}`,
+// });
+
 
 export function generateToken(userId: string): string {
   const jwtSecret: Secret = process.env.JWT_SECRET as string;

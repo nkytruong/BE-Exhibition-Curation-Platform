@@ -6,8 +6,8 @@ import request from "supertest";
 import { string } from "pg-format";
 import { generateToken } from "../utils/auth-utils";
 
-import dotenv from "dotenv";
-dotenv.config({ path: ".env.test" });
+// import dotenv from "dotenv";
+// dotenv.config({ path: ".env.test" });
 
 beforeEach(() => {
   return seed(testData);
