@@ -4,7 +4,7 @@ import { verifyToken } from "../utils/auth-utils";
 declare global {
   namespace Express {
     interface Request {
-      user?: { userId: string };
+      user?: { user_id: string };
     }
   }
 }
@@ -22,7 +22,7 @@ export function authenticateUser(
   }
   try {
     const decoded = verifyToken(token);
-    req.user = { userId: decoded.userId };
+    req.user = { user_id: decoded.user_id };
     next();
   } catch (err) {
     res.status(403).send({ msg: "Invalid or expired token" });

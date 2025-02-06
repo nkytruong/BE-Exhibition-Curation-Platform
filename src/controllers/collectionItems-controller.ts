@@ -39,7 +39,7 @@ export function getCollectionItems(
   next: NextFunction
 ) {
   const { collection_id } = req.params;
-  const user_id = Number(req.user?.userId);
+  const user_id = Number(req.user?.user_id);
 
   checkCollectionOwnership(collection_id, user_id).then((isOwner) => {
     if (!isOwner) {

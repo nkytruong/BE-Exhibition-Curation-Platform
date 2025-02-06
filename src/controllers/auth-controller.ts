@@ -79,7 +79,7 @@ export function loginUser(req: Request, res: Response, next: NextFunction) {
             msg: "Incorrect password",
           });
         }
-        const token = generateToken(user.userId);
+        const token = generateToken(user.user_id);
 
         res.cookie("authToken", token, {
           httpOnly: true,
@@ -96,4 +96,16 @@ export function loginUser(req: Request, res: Response, next: NextFunction) {
 export function logoutUser(req: Request, res: Response) {
   clearToken(res);
   res.status(200).send({ msg: "Logged out successfully" });
+}
+
+export function getCurrentUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  if (req.user) {
+    res.status(200).send({ user: req.user });
+  } else {
+    res.status(401).send({ msg: "Not authenticated" });
+  }
 }

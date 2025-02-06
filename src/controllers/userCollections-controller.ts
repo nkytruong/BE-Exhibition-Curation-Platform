@@ -8,7 +8,7 @@ import {
 
 export function addCollection(req: Request, res: Response, next: NextFunction) {
   const { collection_name } = req.body;
-  const user_id = Number(req.user?.userId);
+  const user_id = Number(req.user?.user_id);
 
   if (!collection_name) {
     res.status(400).send({ msg: "Collection name required" });
@@ -27,7 +27,7 @@ export function getCollections(
   res: Response,
   next: NextFunction
 ) {
-  const user_id = Number(req.user?.userId);
+  const user_id = Number(req.user?.user_id);
 
   fetchCollections(user_id)
     .then((collections) => {
@@ -42,7 +42,7 @@ export function getCollectionById(
   next: NextFunction
 ) {
   const { collection_id } = req.params;
-  const user_id = Number(req.user?.userId);
+  const user_id = Number(req.user?.user_id);
 
   fetchCollectionById(user_id, collection_id)
     .then((collection) => {
@@ -60,7 +60,7 @@ export function deleteCollectionById(
   next: NextFunction
 ) {
   const { collection_id } = req.params;
-  const user_id = Number(req.user?.userId);
+  const user_id = Number(req.user?.user_id);
 
   removeCollectionById(user_id, collection_id)
     .then((deletedRowCount) => {

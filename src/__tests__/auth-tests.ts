@@ -23,13 +23,13 @@ describe("/api/auth/register", () => {
       .send(requestBody)
       .expect(201)
       .then(({ body }) => {
-        console.log(body.user)
+        console.log("Registered User:", body.user);
         expect(body.user).toMatchObject({
           user_id: expect.any(Number),
           email: "nikki@example.com",
           first_name: "Nikki",
           surname: "Example",
-          created_at: expect.any(String)
+          created_at: expect.any(String),
         });
       });
   });
@@ -47,7 +47,7 @@ describe("/api/auth/register", () => {
         expect(body.msg).toBe("All fields are required");
       });
   });
-  test("POST 400: returns correct error message if one of the inputs are not type string", () => {
+  test("POST 400: returns correct error message if non-string input is provided", () => {
     const requestBody = {
       email: "nikki@example.com",
       first_name: "Nikki",
@@ -79,7 +79,7 @@ describe("/api/auth/register", () => {
   });
 });
 describe("/api/auth/login", () => {
-  test("POST 200: returns correct message with a token and sets a cookie when user successfully logs in", () => {
+  test("POST 200: returns correct message with a token and sets auth cookie when user successfully logs in", () => {
     const requestBody = {
       email: "bob@example.com",
       password: "happytrees",
@@ -97,7 +97,7 @@ describe("/api/auth/login", () => {
         );
       });
   });
-  test("POST 400: returns correct message if one of the inputs are missing", () => {
+  test("POST 400: returns correct error message if one of the inputs are missing", () => {
     const requestBody = {
       email: "bob@example.com",
     };
@@ -122,7 +122,7 @@ describe("/api/auth/login", () => {
         expect(body.msg).toBe("Invalid email: User does not exist");
       });
   });
-  test("POST 400: returns correct message if incorrect password", () => {
+  test("POST 400: returns correct error message if incorrect password", () => {
     const requestBody = {
       email: "bob@example.com",
       password: "hello123",
@@ -142,7 +142,6 @@ describe("/api/auth/logout", () => {
       .post("/api/auth/logout")
       .expect(200)
       .then(({ body, headers }) => {
-        // console.log("🚀 Headers:", headers); // ✅ Debug headers
         expect(body.msg).toBe("Logged out successfully");
         expect(headers["set-cookie"]).toEqual(
           expect.arrayContaining([expect.stringContaining("authToken=;")])
