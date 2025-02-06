@@ -1,4 +1,3 @@
-// src/tests/collectionItems-tests.ts
 import request from "supertest";
 import app from "../app";
 import db from "../db/connection";
@@ -18,11 +17,6 @@ describe("POST /api/collectionItems", () => {
       collection_id: "70f5dd38-0ce4-4a64-8c87-e93a9944125f",
       external_id: 54648,
       api_source: "met_museum",
-      item_title: "The Starry Night",
-      artist: "Vincent van Gogh",
-      image_url: "http://example.com/starrynight.jpg",
-      item_created_at: "1889-06-01",
-      added_at: new Date().toISOString(),
     };
     const user_id = "1";
     const token = generateToken(user_id);
@@ -40,21 +34,15 @@ describe("POST /api/collectionItems", () => {
             collection_id: "70f5dd38-0ce4-4a64-8c87-e93a9944125f",
             external_id: 54648,
             api_source: "met_museum",
-            item_title: "The Starry Night",
-            artist: "Vincent van Gogh",
-            image_url: "http://example.com/starrynight.jpg",
-            item_created_at: "1889-06-01",
-            added_at: expect.any(String),
+            created_at: expect.any(String),
           },
         });
       });
   });
-
   test("POST 400: returns correct error message if one of the input fields are missing", () => {
     const requestBody = {
       collection_id: "70f5dd38-0ce4-4a64-8c87-e93a9944125f",
       external_id: 54648,
-      // missing api_source and the artwork snapshot fields
     };
     const user_id = "1";
     const token = generateToken(user_id);
@@ -68,17 +56,10 @@ describe("POST /api/collectionItems", () => {
         expect(body.msg).toBe("All fields required");
       });
   });
-
   test("POST 400: returns correct error message when external_id is not a number", () => {
     const requestBody = {
       collection_id: "70f5dd38-0ce4-4a64-8c87-e93a9944125f",
-      external_id: "invalid_id",
-      api_source: "met_museum",
-      item_title: "Test Artwork",
-      artist: "Test Artist",
-      image_url: "http://example.com/image.jpg",
-      item_created_at: "2020-01-01",
-      added_at: new Date().toISOString(),
+      external_id: 54648,
     };
     const user_id = "1";
     const token = generateToken(user_id);
@@ -86,7 +67,11 @@ describe("POST /api/collectionItems", () => {
     return request(app)
       .post("/api/collectionItems")
       .set("Cookie", `authToken=${token}`)
-      .send(requestBody)
+      .send({
+        collection_id: "70f5dd38-0ce4-4a64-8c87-e93a9944125f",
+        external_id: "invalid_id",
+        api_source: "met_museum",
+      })
       .expect(400)
       .then(({ body }) => {
         expect(body.msg).toBe("Invalid external_id: must be a number");
@@ -113,7 +98,6 @@ describe("GET /api/collectionItems/:collection_id", () => {
         }
       });
   });
-
   test("GET 401: returns correct error message if user is not logged in", () => {
     const collection_id = "70f5dd38-0ce4-4a64-8c87-e93a9944125f";
     return request(app)
@@ -123,7 +107,6 @@ describe("GET /api/collectionItems/:collection_id", () => {
         expect(body.msg).toBe("No token provided");
       });
   });
-
   test("GET 403: returns correct error message if collection_id does not belong to logged in user", () => {
     const collection_id = "52d4c53f-60c2-454a-aa02-206841a60798";
     const user_id = "1";
@@ -139,7 +122,6 @@ describe("GET /api/collectionItems/:collection_id", () => {
       });
   });
 });
-
 describe("DELETE /api/collectionItems/:collection_id", () => {
   test("DELETE 200: removes an item from a collection", () => {
     const collection_id = "0b8a662e-d03e-43ab-b70d-da901d2e3643";
@@ -158,7 +140,6 @@ describe("DELETE /api/collectionItems/:collection_id", () => {
         expect(body.msg).toEqual("Item removed from collection");
       });
   });
-
   test("DELETE 404: returns an error when trying to remove a non-existent item", () => {
     const collection_id = "0b8a662e-d03e-43ab-b70d-da901d2e3643";
     const user_id = "1";

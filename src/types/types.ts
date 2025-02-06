@@ -16,11 +16,15 @@ export interface Collection {
 }
 
 export interface CollectionItem {
-  relationship_id: string;
+  id: string;
   collection_id: string;
   external_id: number;
   api_source: string;
-  created_at: string;
+  item_title: string;
+  artist: string;
+  image_url: string;
+  item_created_at: string;
+  added_at: string;
 }
 
 export type SeedData = {

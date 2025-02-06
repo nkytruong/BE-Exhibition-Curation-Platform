@@ -3,11 +3,7 @@ import { hashPassword } from "../../utils/auth-utils";
 import db from "../connection";
 import format from "pg-format";
 
-export function seed({
-  users,
-  userCollections,
-  collectionItems,
-}: SeedData) {
+export function seed({ users, userCollections, collectionItems }: SeedData) {
   return db
     .query(`DROP TABLE IF EXISTS collection_items;`)
     .then(() => {
@@ -40,11 +36,15 @@ export function seed({
     .then(() => {
       return db.query(`
         CREATE TABLE collection_items(
-            relationship_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
             collection_id UUID REFERENCES user_collections(collection_id) ON DELETE CASCADE,
             external_id BIGINT NOT NULL,
-            api_source VARCHAR(50) NOT NULL,
-            created_at TIMESTAMP DEFAULT NOW(),
+            api_source VARCHAR(100) NOT NULL,
+            item_title VARCHAR(255) NOT NULL,
+            artist VARCHAR(255) NOT NULL,
+            image_url VARCHAR(255) NOT NULL,
+            item_created_at VARCHAR(255) NOT NULL,
+            added_at TIMESTAMP DEFAULT NOW(),
             UNIQUE(collection_id, external_id, api_source)
         );`);
     })
@@ -69,9 +69,8 @@ export function seed({
     })
     .then(() => {
       const insertUserCollectionsQueryStr = format(
-        `INSERT INTO user_collections (collection_id, user_id, collection_name, created_at, updated_at) VALUES %L;`,
+        `INSERT INTO user_collections ( user_id, collection_name, created_at, updated_at) VALUES %L;`,
         userCollections.map((collection: Collection) => [
-          collection.collection_id,
           collection.user_id,
           collection.collection_name,
           collection.created_at,
@@ -82,13 +81,15 @@ export function seed({
     })
     .then(() => {
       const insertCollectionItemQueryStr = format(
-        `INSERT INTO collection_items (relationship_id, collection_id, external_id, api_source, created_at) VALUES %L;`,
+        `INSERT INTO collection_items (collection_id, external_id, api_source, item_title, artist, image_url, item_created_at) VALUES %L;`,
         collectionItems.map((collectionItem: CollectionItem) => [
-          collectionItem.relationship_id,
           collectionItem.collection_id,
           collectionItem.external_id,
           collectionItem.api_source,
-          collectionItem.created_at,
+          collectionItem.item_title,
+          collectionItem.artist,
+          collectionItem.image_url,
+          collectionItem.item_created_at,
         ])
       );
       return db.query(insertCollectionItemQueryStr);

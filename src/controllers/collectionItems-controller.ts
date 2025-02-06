@@ -12,9 +12,26 @@ export function addItemToCollection(
   res: Response,
   next: NextFunction
 ) {
-  const { collection_id, external_id, api_source } = req.body;
+  const {
+    collection_id,
+    external_id,
+    api_source,
+    item_title,
+    artist,
+    image_url,
+    item_created_at,
+    added_at,
+  } = req.body;
 
-  if (!collection_id || !external_id || !api_source) {
+  if (
+    !collection_id ||
+    !external_id ||
+    !api_source ||
+    !item_title ||
+    !artist ||
+    !image_url ||
+    !item_created_at
+  ) {
     res.status(400).send({ msg: "All fields required" });
     return;
   }
@@ -25,7 +42,16 @@ export function addItemToCollection(
     return;
   }
 
-  saveArtworkToCollection(collection_id, parsedExternalId, api_source)
+  saveArtworkToCollection(
+    collection_id,
+    parsedExternalId,
+    api_source,
+    item_title,
+    artist,
+    image_url,
+    item_created_at,
+    added_at
+  )
     .then((savedItem: CollectionItem) => {
       savedItem.external_id = Number(savedItem.external_id);
       res.status(201).send({ msg: "Item added to collection", savedItem });
@@ -41,23 +67,24 @@ export function getCollectionItems(
   const { collection_id } = req.params;
   const user_id = Number(req.user?.user_id);
 
-  checkCollectionOwnership(collection_id, user_id).then((isOwner) => {
-    if (!isOwner) {
-      res
-        .status(403)
-        .send({ msg: "Unauthorized: Collection does not belong to user" });
-      return;
-    }
-  });
-
-  getSavedCollectionItems(collection_id)
-    .then((items: CollectionItem[]) => {
-      const formattedItems = items.map((item) => ({
-        ...item,
-        external_id: Number(item.external_id),
-      }));
-
-      res.status(200).send({ items: formattedItems });
+  checkCollectionOwnership(collection_id, user_id)
+    .then((isOwner) => {
+      if (!isOwner) {
+        res
+          .status(403)
+          .send({ msg: "Unauthorized: Collection does not belong to user" });
+        return;
+      }
+      return getSavedCollectionItems(collection_id);
+    })
+    .then((items: CollectionItem[] | void) => {
+      if (items) {
+        const formattedItems = items.map((item) => ({
+          ...item,
+          external_id: Number(item.external_id),
+        }));
+        res.status(200).send({ items: formattedItems });
+      }
     })
     .catch(next);
 }
