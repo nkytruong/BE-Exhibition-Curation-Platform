@@ -41,7 +41,7 @@ export function normalizeArtInstituteArtworkDetail(
       ? `https://www.artic.edu/iiif/2/${item.image_id}/full/843,/0/default.jpg`
       : "",
     item_created_at: item.date_display || "Unknown",
-    description: item.publication_history || "",
+    description: item.description || "",
     medium: item.medium_display || "",
     dimensions: item.dimensions_display || "",
   };

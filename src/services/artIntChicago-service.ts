@@ -25,7 +25,7 @@ export function fetchArtInstituteArtworks(
 export function fetchArtInstituteArtworkDetail(
   externalId: number
 ): Promise<any> {
-  const url = `https://api.artic.edu/api/v1/artworks/${externalId}?fields=id,title,image_id,artist_display,date_display,medium_display,dimensions_display,publication_history`;
+  const url = `https://api.artic.edu/api/v1/artworks/${externalId}?fields=id,title,image_id,artist_display,date_display,medium_display,dimensions_display,description`;
   return axios
     .get(url)
     .then((response) => response.data)
