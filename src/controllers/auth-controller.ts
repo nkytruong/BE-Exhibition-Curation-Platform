@@ -82,11 +82,11 @@ export function loginUser(req: Request, res: Response, next: NextFunction) {
         const token = generateToken(user.user_id);
 
         res.cookie('authToken', token, {
-          httpOnly: true, // ✅ Prevents JavaScript access (secure)
-          secure: process.env.NODE_ENV === "production", // ✅ Use Secure=True only in production
-          sameSite: 'none', // ✅ Allows cross-origin cookies
+          httpOnly: true, 
+          secure: process.env.NODE_ENV === "production", 
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", 
           path: '/',
-          maxAge: 24 * 60 * 60 * 1000 // ✅ 24-hour expiry
+          maxAge: 24 * 60 * 60 * 1000 
         });
         
         res.status(200).send({ msg: "Login successful", token });
