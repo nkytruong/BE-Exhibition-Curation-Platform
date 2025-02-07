@@ -1,7 +1,7 @@
 import { ArtworkDetail } from "../types/types";
 import { Artwork } from "../types/types";
 
-export function normalizeArtInstituteData(apiData: any): Artwork[] {
+export function normaliseArtInstituteData(apiData: any): Artwork[] {
   return apiData.data.map((item: any) => ({
     external_id: Number(item.id),
     api_source: "artInstitute",
@@ -14,7 +14,7 @@ export function normalizeArtInstituteData(apiData: any): Artwork[] {
   }));
 }
 
-export function normalizeClevelandData(apiData: any): Artwork[] {
+export function normaliseClevelandData(apiData: any): Artwork[] {
   return apiData.data.map((item: any) => ({
     external_id: String(item.id),
     api_source: "clevelandMuseum",
@@ -28,7 +28,7 @@ export function normalizeClevelandData(apiData: any): Artwork[] {
   }));
 }
 
-export function normalizeArtInstituteArtworkDetail(
+export function normaliseArtInstituteArtworkDetail(
   apiData: any
 ): ArtworkDetail {
   const item = apiData.data;
@@ -41,13 +41,13 @@ export function normalizeArtInstituteArtworkDetail(
       ? `https://www.artic.edu/iiif/2/${item.image_id}/full/843,/0/default.jpg`
       : "",
     item_created_at: item.date_display || "Unknown",
-    description: item.description || "",
-    medium: item.medium_display || "",
-    dimensions: item.dimensions_display || "",
+    description: item.description || "No description available",
+    medium: item.medium_display || "N/A",
+    dimensions: item.dimensions_display || "N/A",
   };
 }
 
-export function normalizeClevelandArtworkDetail(apiData: any): ArtworkDetail {
+export function normaliseClevelandArtworkDetail(apiData: any): ArtworkDetail {
   const item = apiData.data;
   return {
     external_id: Number(item.id),
@@ -59,8 +59,8 @@ export function normalizeClevelandArtworkDetail(apiData: any): ArtworkDetail {
         : "Unknown Artist",
     image_url: item.images && item.images.web ? item.images.web.url : "",
     item_created_at: item.creation_date || "Unknown",
-    description: item.description || "",
-    medium: item.medium || "",
-    dimensions: item.dimensions || "",
+    description: item.description || "No description available",
+    medium: item.technique || "N/A", // Use "technique" from the API here
+    dimensions: item.dimensions || "N/A",
   };
 }

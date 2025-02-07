@@ -8,14 +8,14 @@ import {
   fetchClevelandArtworks,
 } from "../services/clevelandMuseum-service";
 import {
-  normalizeArtInstituteArtworkDetail,
-  normalizeArtInstituteData,
-  normalizeClevelandArtworkDetail,
-  normalizeClevelandData,
+  normaliseArtInstituteArtworkDetail,
+  normaliseArtInstituteData,
+  normaliseClevelandArtworkDetail,
+  normaliseClevelandData,
 } from "../utils/dataNormalisation";
 
 /**
- * Fetch artworks from both museum APIs, normalize data, and return combined results.
+ * Fetch artworks from both museum APIs, normalise data, and return combined results.
  */
 export function searchArtworks(
   req: Request,
@@ -35,8 +35,8 @@ export function searchArtworks(
     fetchClevelandArtworks(q as string, pageNum, filter),
   ])
     .then(([artInstituteRes, clevelandRes]) => {
-      const artInstituteArtworks = normalizeArtInstituteData(artInstituteRes);
-      const clevelandArtworks = normalizeClevelandData(clevelandRes);
+      const artInstituteArtworks = normaliseArtInstituteData(artInstituteRes);
+      const clevelandArtworks = normaliseClevelandData(clevelandRes);
       let combinedResults = [...artInstituteArtworks, ...clevelandArtworks];
 
       if (artist) {
@@ -88,14 +88,14 @@ export function getArtworkDetail(
   if (api_source === "artInstitute") {
     fetchArtInstituteArtworkDetail(externalId)
       .then((apiData) => {
-        const artwork = normalizeArtInstituteArtworkDetail(apiData);
+        const artwork = normaliseArtInstituteArtworkDetail(apiData);
         res.status(200).send({ artwork });
       })
       .catch(next);
   } else if (api_source === "clevelandMuseum") {
     fetchClevelandArtworkDetail(externalId)
       .then((apiData) => {
-        const artwork = normalizeClevelandArtworkDetail(apiData);
+        const artwork = normaliseClevelandArtworkDetail(apiData);
         res.status(200).send({ artwork });
       })
       .catch(next);
