@@ -103,9 +103,17 @@ export function getCurrentUser(
   res: Response,
   next: NextFunction
 ) {
-  if (req.user) {
-    res.status(200).send({ user: req.user });
-  } else {
+  if (!req.user) {
     res.status(401).send({ msg: "Not authenticated" });
+    return
   }
+
+  fetchUser(Number(req.user.user_id))
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({ msg: "User not found" });
+      }
+      res.status(200).send({ user });
+    })
+    .catch(next);
 }
