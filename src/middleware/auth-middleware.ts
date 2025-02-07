@@ -18,13 +18,17 @@ export function authenticateUser(
 
   if (!token) {
     res.status(401).json({ msg: "No token provided" });
-    return;
+    return
   }
+
   try {
     const decoded = verifyToken(token);
     req.user = { user_id: decoded.user_id };
     next();
   } catch (err) {
-    res.status(403).send({ msg: "Invalid or expired token" });
+    // Optional: log the error for debugging purposes
+    console.error("Token verification failed:", err);
+    res.status(403).json({ msg: "Invalid or expired token" })
+    return
   }
 }

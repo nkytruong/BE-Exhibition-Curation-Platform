@@ -42,7 +42,7 @@ export function registerUser(req: Request, res: Response, next: NextFunction) {
       res.cookie("authToken", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 3600000,
       });
       res.status(201).send({
@@ -81,12 +81,14 @@ export function loginUser(req: Request, res: Response, next: NextFunction) {
         }
         const token = generateToken(user.user_id);
 
-        res.cookie("authToken", token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "none",
-          maxAge: 3600000,
+        res.cookie('authToken', token, {
+          httpOnly: true, // ✅ Prevents JavaScript access (secure)
+          secure: process.env.NODE_ENV === "production", // ✅ Use Secure=True only in production
+          sameSite: 'none', // ✅ Allows cross-origin cookies
+          path: '/',
+          maxAge: 24 * 60 * 60 * 1000 // ✅ 24-hour expiry
         });
+        
         res.status(200).send({ msg: "Login successful", token });
       });
     })
