@@ -17,7 +17,7 @@ export function authenticateUser(
   const token = req.cookies?.authToken;
 
   if (!token) {
-    res.status(401).json({ msg: "No token provided" });
+    res.status(401).send({ msg: "No token provided" });
     return
   }
 
@@ -28,7 +28,7 @@ export function authenticateUser(
   } catch (err) {
     // Optional: log the error for debugging purposes
     console.error("Token verification failed:", err);
-    res.status(403).json({ msg: "Invalid or expired token" })
+    res.status(403).send({ msg: "Invalid or expired token" })
     return
   }
 }

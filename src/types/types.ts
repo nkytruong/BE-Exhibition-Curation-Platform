@@ -32,3 +32,24 @@ export type SeedData = {
   userCollections: Collection[];
   collectionItems: CollectionItem[];
 };
+
+export interface Artwork {
+  external_id: number;
+  api_source: "artInstitute" | "clevelandMuseum";
+  item_title: string;
+  artist: string;
+  image_url: string;
+  item_created_at: string;
+}
+
+export interface ArtworkDetail {
+  external_id: number;
+  api_source: "artInstitute" | "clevelandMuseum";
+  item_title: string;
+  artist: string;
+  image_url: string;
+  item_created_at: string;
+  description?: string;
+  medium?: string;
+  dimensions?: string;
+}

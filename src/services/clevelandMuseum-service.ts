@@ -1,8 +1,5 @@
 import axios from "axios";
 
-/**
- * Fetch artworks from the Cleveland Museum of Art API.
- */
 export function fetchClevelandArtworks(
   search: string,
   page: number,
@@ -22,5 +19,18 @@ export function fetchClevelandArtworks(
     .catch((error) => {
       console.error("Cleveland Museum API Error:", error.message);
       throw new Error("Failed to fetch artworks from Cleveland Museum API");
+    });
+}
+
+export function fetchClevelandArtworkDetail(externalId: number): Promise<any> {
+  const url = `https://openaccess-api.clevelandart.org/api/artworks/${externalId}`;
+  return axios
+    .get(url)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Cleveland Museum Detail API Error:", error.message);
+      throw new Error(
+        "Failed to fetch artwork detail from Cleveland Museum API"
+      );
     });
 }

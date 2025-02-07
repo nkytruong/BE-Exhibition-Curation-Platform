@@ -1,9 +1,12 @@
 import { Router } from "express";
-import { searchArtworks } from "../controllers/items-controller";
+import {
+  getArtworkDetail,
+  searchArtworks,
+} from "../controllers/items-controller";
 
 const itemsRouter = Router();
 
-// GET /api/artworks/search?q=monet&page=1&artist=Monet
 itemsRouter.get("/search", searchArtworks);
+itemsRouter.get("/:id", getArtworkDetail);
 
 export default itemsRouter;

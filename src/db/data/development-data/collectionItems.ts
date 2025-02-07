@@ -23,7 +23,7 @@ export const collectionItems: CollectionItem[] = [
     image_url:
       "https://openaccess-cdn.clevelandart.org/1915.534/1915.534_web.jpg",
     item_created_at: "c. 1765",
-    added_at: "2025-01-06T12:00:00Z", 
+    added_at: "2025-01-06T12:00:00Z",
   },
   {
     id: "916ca42d-42ba-48c3-bf23-b28acfa01609",
@@ -51,7 +51,7 @@ export const collectionItems: CollectionItem[] = [
   },
   {
     id: "3cc577c0-f995-40ff-a89d-aad0b877f684",
-    collection_id: "0b8a662e-d03e-43ab-b70d-da901d2e3643", //John's collection 2
+    collection_id: "0b8a662e-d03e-43ab-b70d-da901d2e3643", // John's collection 2
     external_id: 20684,
     api_source: "artInstitute",
     item_title: "Paris Street; Rainy Day",
@@ -63,7 +63,7 @@ export const collectionItems: CollectionItem[] = [
   },
   {
     id: "328ec426-b297-4601-8286-78e4f46d4ca6",
-    collection_id: "e2ec43a0-b677-40cb-9407-a0c855102c6a", //Bob's collection
+    collection_id: "e2ec43a0-b677-40cb-9407-a0c855102c6a", // Bob's collection
     external_id: 27992,
     api_source: "artInstitute",
     item_title: "A Sunday on La Grande Jatte — 1884",
@@ -75,7 +75,7 @@ export const collectionItems: CollectionItem[] = [
   },
   {
     id: "ae5e29b4-24e2-42ec-bfc9-73bf48b0928f",
-    collection_id: "546999f7-d7b6-4896-b62e-3c4cd9b30921", //Frodo's collection
+    collection_id: "546999f7-d7b6-4896-b62e-3c4cd9b30921", // Frodo's collection
     external_id: 75644,
     api_source: "artInstitute",
     item_title: "Coronation Stone of Motecuhzoma II (Stone of the Five Suns)",

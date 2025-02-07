@@ -1,7 +1,5 @@
 import axios from "axios";
-/**
- * Fetch artworks from the Art Institute of Chicago API.
- */
+
 export function fetchArtInstituteArtworks(
   search: string,
   page: number,
@@ -21,5 +19,18 @@ export function fetchArtInstituteArtworks(
     .catch((error) => {
       console.error("Art Institute API Error:", error.message);
       throw new Error("Failed to fetch artworks from Art Institute API");
+    });
+}
+
+export function fetchArtInstituteArtworkDetail(
+  externalId: number
+): Promise<any> {
+  const url = `https://api.artic.edu/api/v1/artworks/${externalId}?fields=id,title,image_id,artist_display,date_display,medium_display,dimensions_display,publication_history`;
+  return axios
+    .get(url)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Art Institute Detail API Error:", error.message);
+      throw new Error("Failed to fetch artwork detail from Art Institute API");
     });
 }
