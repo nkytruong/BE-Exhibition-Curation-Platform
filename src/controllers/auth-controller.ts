@@ -84,7 +84,7 @@ export function loginUser(req: Request, res: Response, next: NextFunction) {
         res.cookie("authToken", token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
-          sameSite: "strict",
+          sameSite: "none",
           maxAge: 3600000,
         });
         res.status(200).send({ msg: "Login successful", token });
@@ -105,7 +105,7 @@ export function getCurrentUser(
 ) {
   if (!req.user) {
     res.status(401).send({ msg: "Not authenticated" });
-    return
+    return;
   }
 
   fetchUser(Number(req.user.user_id))
