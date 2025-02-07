@@ -8,7 +8,8 @@ import { normalizeArtInstituteData, normalizeClevelandData } from "../utils/data
  */
 export function searchArtworks(req: Request, res: Response, next: NextFunction): void {
   const { q = "", page = "1", artist } = req.query;
-  const pageNum = parseInt(page as string, 10);
+  const pageNum = parseInt(page as string, 10) || 1;
+  const artworksPerPage = 40;
   const filter: Record<string, string> = {};
   if (artist) {
     filter.artist = artist as string;
@@ -30,7 +31,19 @@ export function searchArtworks(req: Request, res: Response, next: NextFunction):
         );
       }
 
-      res.status(200).json({ artworks: combinedResults });
+      const startIndex = (pageNum - 1) * artworksPerPage;
+      const pagedResults = combinedResults.slice(startIndex, startIndex + artworksPerPage);
+      const totalPages = Math.ceil(combinedResults.length / artworksPerPage);
+
+      res.status(200).json({
+        artworks: pagedResults,
+        meta: {
+          totalArtworks: combinedResults.length,
+          totalPages,
+          currentPage: pageNum,
+          artworksPerPage,
+        }
+      });
     })
     .catch(next);
 }
