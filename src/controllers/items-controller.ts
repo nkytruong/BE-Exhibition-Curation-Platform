@@ -47,6 +47,13 @@ export function searchArtworks(
         );
       }
 
+      if (req.query.source) {
+        const sourceFilter = req.query.source as string;
+        combinedResults = combinedResults.filter(
+          (artwork) => artwork.api_source === sourceFilter
+        );
+      }
+
       const startIndex = (pageNum - 1) * artworksPerPage;
       const pagedResults = combinedResults.slice(
         startIndex,
