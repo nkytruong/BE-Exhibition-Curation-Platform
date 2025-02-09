@@ -16,12 +16,13 @@ describe("POST /api/collectionItems", () => {
   test("POST 201: adds an item to a collection if user is logged in", () => {
     const requestBody = {
       collection_id: "70f5dd38-0ce4-4a64-8c87-e93a9944125f",
-      external_id: 54648,
-      api_source: "met_museum",
-      item_title: "The Starry Night",
-      artist: "Vincent van Gogh",
-      image_url: "http://example.com/starrynight.jpg",
-      item_created_at: "1889-06-01",
+      external_id: 28560,
+      api_source: "artInstitute",
+      item_title: "The Bedroom",
+      artist: "Vincent van Gogh (Dutch, 1853-1890)",
+      image_url:
+        "https://www.artic.edu/iiif/2/25c31d8d-21a4-9ea1-1d73-6a2eca4dda7e/full/843,/0/default.jpg",
+      item_created_at: "1889",
       added_at: new Date().toISOString(),
     };
     const user_id = "1";
@@ -38,12 +39,13 @@ describe("POST /api/collectionItems", () => {
           savedItem: {
             id: expect.any(String),
             collection_id: "70f5dd38-0ce4-4a64-8c87-e93a9944125f",
-            external_id: 54648,
-            api_source: "met_museum",
-            item_title: "The Starry Night",
-            artist: "Vincent van Gogh",
-            image_url: "http://example.com/starrynight.jpg",
-            item_created_at: "1889-06-01",
+            external_id: 28560,
+            api_source: "artInstitute",
+            item_title: "The Bedroom",
+            artist: "Vincent van Gogh (Dutch, 1853-1890)",
+            image_url:
+              "https://www.artic.edu/iiif/2/25c31d8d-21a4-9ea1-1d73-6a2eca4dda7e/full/843,/0/default.jpg",
+            item_created_at: "1889",
             added_at: expect.any(String),
           },
         });
@@ -53,7 +55,7 @@ describe("POST /api/collectionItems", () => {
   test("POST 400: returns correct error message if one of the input fields are missing", () => {
     const requestBody = {
       collection_id: "70f5dd38-0ce4-4a64-8c87-e93a9944125f",
-      external_id: 54648,
+      external_id: 28560,
       // missing api_source and the artwork snapshot fields
     };
     const user_id = "1";
@@ -73,11 +75,12 @@ describe("POST /api/collectionItems", () => {
     const requestBody = {
       collection_id: "70f5dd38-0ce4-4a64-8c87-e93a9944125f",
       external_id: "invalid_id",
-      api_source: "met_museum",
-      item_title: "Test Artwork",
-      artist: "Test Artist",
-      image_url: "http://example.com/image.jpg",
-      item_created_at: "2020-01-01",
+      api_source: "artInstitute",
+      item_title: "The Bedroom",
+      artist: "Vincent van Gogh (Dutch, 1853-1890)",
+      image_url:
+        "https://www.artic.edu/iiif/2/25c31d8d-21a4-9ea1-1d73-6a2eca4dda7e/full/843,/0/default.jpg",
+      item_created_at: "1889",
       added_at: new Date().toISOString(),
     };
     const user_id = "1";
@@ -150,8 +153,8 @@ describe("DELETE /api/collectionItems/:collection_id", () => {
       .set("Cookie", `authToken=${token}`)
       .send({
         collection_id: collection_id,
-        external_id: 437853,
-        api_source: "met_museum",
+        external_id: 94979,
+        api_source: "clevelandMuseum",
       })
       .expect(200)
       .then(({ body }) => {
@@ -169,8 +172,8 @@ describe("DELETE /api/collectionItems/:collection_id", () => {
       .set("Cookie", `authToken=${token}`)
       .send({
         collection_id: collection_id,
-        external_id: 99999999, // Non-existent ID
-        api_source: "met_museum",
+        external_id: 999999999999999, // Non-existent ID
+        api_source: "clevelandMuseum",
       })
       .expect(404)
       .then(({ body }) => {

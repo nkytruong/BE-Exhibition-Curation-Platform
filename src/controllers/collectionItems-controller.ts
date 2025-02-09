@@ -24,13 +24,13 @@ export function addItemToCollection(
   } = req.body;
 
   if (
-    !collection_id ||
-    !external_id ||
-    !api_source ||
-    !item_title ||
-    !artist ||
-    !image_url ||
-    !item_created_at
+    collection_id === undefined ||
+    external_id === undefined ||
+    api_source === undefined ||
+    item_title === undefined ||
+    artist === undefined ||
+    image_url === undefined ||
+    item_created_at === undefined
   ) {
     res.status(400).send({ msg: "All fields required" });
     return;
