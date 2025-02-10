@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
-const allowedOrigins = ["http://localhost:5173", "https://67a9e0c2e493bdcef0b2fff8--taupe-crepe-56e818.netlify.app"];
+const allowedOrigins = ["http://localhost:5173", "https://exhibit-museum.netlify.app/"];
 
 app.use(
   cors({
