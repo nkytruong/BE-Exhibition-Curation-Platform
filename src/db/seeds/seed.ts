@@ -70,11 +70,10 @@ export function seed({ users, userCollections, collectionItems }: SeedData) {
       );
     })
     .then(({ rows: insertedUsers }) => {
-      // Insert user_collections using explicit IDs from test data
       const insertUserCollectionsQueryStr = format(
         `INSERT INTO user_collections (collection_id, user_id, collection_name, created_at, updated_at) VALUES %L;`,
         userCollections.map((collection: Collection) => [
-          collection.collection_id, // Use explicit test data value
+          collection.collection_id, 
           collection.user_id,
           collection.collection_name,
           collection.created_at,
@@ -84,10 +83,9 @@ export function seed({ users, userCollections, collectionItems }: SeedData) {
       return db.query(insertUserCollectionsQueryStr);
     })
     .then(() => {
-      // Directly insert collection_items using the explicit collection_id from test data
       const formattedCollectionItems = collectionItems.map(
         (collectionItem: CollectionItem) => [
-          collectionItem.collection_id, // use the provided value directly
+          collectionItem.collection_id, 
           collectionItem.external_id,
           collectionItem.api_source,
           collectionItem.item_title,

@@ -7,7 +7,6 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
-// add frontend url when hosted
 const allowedOrigins = "http://localhost:5173";
 
 app.use(

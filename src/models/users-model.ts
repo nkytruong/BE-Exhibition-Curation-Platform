@@ -1,6 +1,5 @@
 import db from "../db/connection";
 import { User } from "../types/types";
-// import bcrypt from "bcryptjs"
 
 export function fetchUser(user_id: number){
   return db.query(

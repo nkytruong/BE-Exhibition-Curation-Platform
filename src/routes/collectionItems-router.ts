@@ -8,15 +8,15 @@ import { authenticateUser } from "../middleware/auth-middleware";
 
 export const collectionItemsRouter = express.Router();
 
-// ✅ Fetch all items in a collection
+// Fetch all items in a collection
 collectionItemsRouter
   .route("/:collection_id")
   .get(authenticateUser, getCollectionItems);
 
-// ✅ Add an item to a collection
+// Add an item to a collection
 collectionItemsRouter.route("/").post(authenticateUser, addItemToCollection);
 
-// ✅ Remove an item from a collection
+// Remove an item from a collection
 collectionItemsRouter
   .route("/:collection_id")
   .delete(authenticateUser, deleteItemFromCollection);

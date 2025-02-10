@@ -60,7 +60,7 @@ export function normaliseClevelandArtworkDetail(apiData: any): ArtworkDetail {
     image_url: item.images && item.images.web ? item.images.web.url : "",
     item_created_at: item.creation_date || "Unknown",
     description: item.description || "No description available",
-    medium: item.technique || "N/A", // Use "technique" from the API here
+    medium: item.technique || "N/A", 
     dimensions: item.dimensions || "N/A",
   };
 }

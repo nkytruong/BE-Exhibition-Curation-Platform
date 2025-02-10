@@ -26,7 +26,6 @@ export function authenticateUser(
     req.user = { user_id: decoded.user_id };
     next();
   } catch (err) {
-    // Optional: log the error for debugging purposes
     console.error("Token verification failed:", err);
     res.status(403).send({ msg: "Invalid or expired token" })
     return
